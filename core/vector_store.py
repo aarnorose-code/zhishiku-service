@@ -25,6 +25,7 @@ async def get_client() -> AsyncQdrantClient:
             url=settings.qdrant_url,
             api_key=settings.qdrant_api_key,
             timeout=30.0,
+            prefer_grpc=False,
         )
         logger.info(f"Qdrant 客户端已连接: {settings.qdrant_url}")
     return _client
