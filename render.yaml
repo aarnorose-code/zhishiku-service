@@ -1,0 +1,49 @@
+# ========================================
+# Render 部署配置
+# ========================================
+
+services:
+  - type: web
+    name: zhishiku
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    plan: starter
+    region: singapore  # 可选: oregon, frankfurt, singapore 等
+    healthCheckPath: /api/health
+    envVars:
+      - key: GITHUB_TOKEN
+        sync: false
+      - key: GITHUB_REPO
+        sync: false
+      - key: GITHUB_BRANCH
+        value: main
+      - key: GITHUB_DOCS_PATH
+        value: docs
+      - key: QDRANT_URL
+        sync: false
+      - key: QDRANT_API_KEY
+        sync: false
+      - key: QDRANT_COLLECTION
+        value: zhishiku
+      - key: EMBEDDING_PROVIDER
+        value: openai
+      - key: EMBEDDING_MODEL
+        value: text-embedding-3-small
+      - key: EMBEDDING_DIM
+        value: "1536"
+      - key: EMBEDDING_API_KEY
+        sync: false
+      - key: LLM_PROVIDER
+        value: openai
+      - key: LLM_MODEL
+        value: gpt-4o-mini
+      - key: LLM_API_KEY
+        sync: false
+      - key: AUTH_TOKEN
+        generateValue: true
+      - key: HOST
+        value: "0.0.0.0"
+      - key: PORT
+        value: "8000"
+      - key: LOG_LEVEL
+        value: INFO
